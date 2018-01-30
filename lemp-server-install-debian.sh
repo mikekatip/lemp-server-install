@@ -166,3 +166,8 @@ add_header X-Frame-Options DENY;
 add_header X-Content-Type-Options nosniff;
 ssl_dhparam /etc/ssl/certs/dhparam.pem;
 EOF"
+
+# domain add/remove script
+
+${SUDO} wget -O /usr/bin/domain https://raw.githubusercontent.com/mikekatip/lemp/master/domain.sh
+${SUDO} chmod +x /usr/bin/domain

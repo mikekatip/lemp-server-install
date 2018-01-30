@@ -169,5 +169,5 @@ EOF"
 
 # domain add/remove script
 
-${SUDO} wget -O /usr/bin/domain https://raw.githubusercontent.com/mikekatip/lemp/master/domain.sh
+${SUDO} wget -O /usr/bin/domain https://raw.githubusercontent.com/mikekatip/lemp-server-install/master/domain.sh
 ${SUDO} chmod +x /usr/bin/domain

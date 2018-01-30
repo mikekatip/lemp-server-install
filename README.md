@@ -8,7 +8,7 @@ wget https://raw.githubusercontent.com/mikekatip/lemp/master/lemp-server-install
 
 #  Adding a new domain
 
-When adding a domain to be used for local development, replace .tld with .local. 
+When adding a domain to be used for local development, replace .tld with .local. /etc/hosts will be updated when adding local domains. Non-local domains will be configured for SSL using letsencrypt.
 
 ```
 domain add domain.tld

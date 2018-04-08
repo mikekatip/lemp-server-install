@@ -287,7 +287,7 @@ EOF"
 
 # domain add/remove script
 
-# sudo wget -O /usr/bin/domain https://raw.githubusercontent.com/mikekatip/lemp-server-install/master/domain.sh
+# sudo wget -O /usr/bin/domain https://raw.githubusercontent.com/mikekatip/lemp-server-install/master/usr/local/bin/domain.sh
 # sudo chmod +x /usr/bin/domain
 
 #### START AND ENABLE SERVICES ####

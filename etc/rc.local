@@ -1,0 +1,15 @@
+#!/bin/sh -e
+
+sleep 5
+
+if [ -e /sbin/ifconfig ]
+then
+    /sbin/ifconfig | grep "inet addr" | grep -v "127.0.0.1" | awk '{ print $2 }' | awk -F: '{ print $2 }' > /etc/issue
+fi
+
+if [ -e /sbin/ip ]
+then
+    /sbin/ip route get 8.8.8.8 | sed -n '/src/{s/.*src *//p;q}' > /etc/issue
+fi
+
+exit 0

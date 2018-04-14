@@ -1,5 +1,6 @@
-# Install nginx, MariaDB, and PHP in Debian/Ubuntu
+# nginx, MariaDB, and PHP in Debian/Ubuntu
 
+## Installation
 Tested in Debian 8 (Jessie), Debian 9 (Stretch), Ubuntu 16.04 LTS (Xenial Xerus), Ubuntu 17.10 (Artful Aardvark), and Elementary OS 0.4 (Loki).
 
 ```
@@ -7,9 +8,9 @@ wget https://raw.githubusercontent.com/mikekatip/lemp-server-install/master/lemp
 chmod +x lemp-server-install.sh
 ./lemp-server-install.sh
 ```
-## ERROR: The certificate of ‘raw.githubusercontent.com’ is not trusted
+### Errors
 
-Install *ca-certificates* to resolve the following errors:
+Install *ca-certificates* (which allows wget to use https) to resolve the following errors:
 
 - The certificate of ‘raw.githubusercontent.com’ is not trusted.
 - The certificate of ‘raw.githubusercontent.com’ hasn't got a known issuer.

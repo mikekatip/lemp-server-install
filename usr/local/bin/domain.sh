@@ -34,13 +34,7 @@ server {
 }
 
 EOF"
-            sudo mkdir -p $WEBROOT/$2
-			# sudo chgrp -R www-data $WEBROOT/$2
-            sudo chown -R www-data:sudo $WEBROOT/$2
-			sudo chmod -R 775 $WEBROOT/$2
-            sudo chmod -R g+s $WEBROOT/$2
-            sudo chmod -R o-rwx $WEBROOT/$2
-            
+            sudo mkdir -p $WEBROOT/$2            
 
 			sudo bash -c "cat << 'EOF' > $WEBROOT/$2/info.php
 <?php phpinfo(); ?>
@@ -86,7 +80,13 @@ EOF"
 </html>
 EOF"
 
-			sudo systemctl restart nginx
+   			sudo chown -R www-data:sudo $WEBROOT/$2
+			sudo chmod -R 775 $WEBROOT/$2
+            sudo chmod -R g+s $WEBROOT/$2
+            sudo chmod -R o-rwx $WEBROOT/$2
+            sudo chmod -R 775 $WEBROOT/$2
+			
+            sudo systemctl restart nginx
             
             if [[ ${2} != *".local"* ]];then
                 

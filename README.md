@@ -24,3 +24,39 @@ Install `ca-certificates` (which allows `wget` to use https) to resolve the foll
 ```
 su -c "apt-get install ca-certificates"
 ```
+## Domain Management Script
+
+### Installation
+
+`lemp-server-install.sh` will automatically install `domain.sh` to `/usr/bin/domain`. Manual installation is not necessary.
+
+```
+wget -O /usr/bin/domain https://raw.githubusercontent.com/mikekatip/lemp-server-install/master/usr/local/bin/domain.sh
+sudo chmod +x /usr/bin/domain
+```
+
+### Usage
+
+#### Adding a Domain
+
+```
+sudo domain add domain.tld
+```
+
+##### Example
+
+```
+sudo domain add example.com
+```
+
+#### Removing a Domain
+
+```
+sudo domain remove domain.tld
+```
+
+##### Example
+
+```
+sudo domain remove example.com
+```

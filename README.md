@@ -30,7 +30,7 @@ su -c "apt-get install ca-certificates"
 
 `lemp-server-install.sh` will automatically install `domain.sh` to `/usr/bin/domain`. 
 
-Manual installation is not necessary, but possible with the following commands.
+Manual installation is not necessary, but is possible with the following commands:
 
 ```
 sudo wget -O /usr/bin/domain https://raw.githubusercontent.com/mikekatip/lemp-server-install/master/usr/local/bin/domain.sh

@@ -16,7 +16,7 @@ Tested in the following distros:
 
 ### Errors
 
-Install *ca-certificates* (which allows wget to use https) to resolve the following errors:
+Install *ca-certificates* (which allows *wget* to use https) to resolve the following errors:
 
 - The certificate of ‘raw.githubusercontent.com’ is not trusted.
 - The certificate of ‘raw.githubusercontent.com’ hasn't got a known issuer.

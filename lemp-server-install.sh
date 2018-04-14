@@ -180,9 +180,24 @@ fi
 
 INSTALL_PHP="php7.2-cgi php7.2-gd php7.2-curl php7.2-imap php7.2-sqlite3 php7.2-mysql php7.2-tidy php7.2-pspell php7.2-recode php7.2-xml php7.2-intl php7.2-enchant php7.2-gmp php7.2-mbstring php7.2-soap php7.2-xmlrpc php7.2-zip php7.2-fpm"
 
+# certbot
+
+if [ "${DISTRO}" == "debian" ]; then
+    sudo bash -c "echo 'deb http://ftp.debian.org/debian ${CODENAME}-backports main' > /etc/apt/sources.list.d/${CODENAME}-backports.list"
+    INSTALL_CERTBOT="python-certbot-nginx -t ${CODENAME}-backports"
+fi
+
+if [ "${DISTRO}" == "ubuntu" ]; then
+    sudo add-apt-repository ppa:certbot/certbot
+    INSTALL_CERTBOT="python-certbot-nginx"
+fi
+
+
+
 # apt install lemp-server
 sudo apt update 
 ${INSTALL} ${INSTALL_NGINX} ${INSTALL_MARIADB} ${INSTALL_PHP}
+${INSTALL} ${INSTALL_CERTBOT}
 
 #### LEMP SERVER CONFIG ####
 
@@ -287,8 +302,8 @@ EOF"
 
 # domain add/remove script
 
-# sudo wget -O /usr/bin/domain https://raw.githubusercontent.com/mikekatip/lemp-server-install/master/usr/local/bin/domain.sh
-# sudo chmod +x /usr/bin/domain
+sudo wget -O /usr/bin/domain https://raw.githubusercontent.com/mikekatip/lemp-server-install/master/usr/local/bin/domain.sh
+sudo chmod +x /usr/bin/domain
 
 #### START AND ENABLE SERVICES ####
 

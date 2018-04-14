@@ -8,3 +8,4 @@ wget https://raw.githubusercontent.com/mikekatip/lemp-server-install/master/lemp
 chmod +x lemp-server-install.sh
 ./lemp-server-install.sh
 ```
+## ERROR: The certificate of ‘raw.githubusercontent.com’ is not trusted

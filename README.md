@@ -1,12 +1,5 @@
 # nginx, MariaDB, and PHP in Debian/Ubuntu
 
-## Installation
-
-```
-wget https://raw.githubusercontent.com/mikekatip/lemp-server-install/master/lemp-server-install.sh
-chmod +x lemp-server-install.sh
-./lemp-server-install.sh
-```
 Tested in the following distros:
 - Debian 8 (Jessie)
 - Debian 9 (Stretch)
@@ -14,6 +7,13 @@ Tested in the following distros:
 - Ubuntu 17.10 (Artful Aardvark)
 - Elementary OS 0.4 (Loki).
 
+## Installation
+
+```
+wget https://raw.githubusercontent.com/mikekatip/lemp-server-install/master/lemp-server-install.sh
+chmod +x lemp-server-install.sh
+./lemp-server-install.sh
+```
 ### Errors
 
 Install `ca-certificates` (which allows `wget` to use https) to resolve the following errors:

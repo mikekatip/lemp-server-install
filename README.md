@@ -74,7 +74,6 @@ Make sure to make a backup before removing a domain.
 ```
 sudo domain remove domain.tld
 ```
---OR--
 ```
 sudo domain remove domain.local
 ```

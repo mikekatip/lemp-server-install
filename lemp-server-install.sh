@@ -78,7 +78,7 @@ else
 fi
 
 INSTALL_APT="apt apt-transport-https apt-utils software-properties-common"
-INSTALL_OTHER="curl dialog lsb-release nano ca-certificates dirmngr"
+INSTALL_OTHER="curl dialog lsb-release nano ca-certificates dirmngr openssl"
 
 ${INSTALL} ${INSTALL_APT} ${INSTALL_OTHER}
 
@@ -180,7 +180,7 @@ fi
 
 INSTALL_PHP="php7.2-cgi php7.2-gd php7.2-curl php7.2-imap php7.2-sqlite3 php7.2-mysql php7.2-tidy php7.2-pspell php7.2-recode php7.2-xml php7.2-intl php7.2-enchant php7.2-gmp php7.2-mbstring php7.2-soap php7.2-xmlrpc php7.2-zip php7.2-fpm"
 
-# certbot
+# letsencrypt
 
 if [ "${DISTRO}" == "debian" ]; then
     sudo bash -c "echo 'deb http://ftp.debian.org/debian ${CODENAME}-backports main' > /etc/apt/sources.list.d/${CODENAME}-backports.list"
@@ -192,12 +192,14 @@ if [ "${DISTRO}" == "ubuntu" ]; then
     INSTALL_CERTBOT="python-certbot-nginx"
 fi
 
-
-
 # apt install lemp-server
 sudo apt update 
 ${INSTALL} ${INSTALL_NGINX} ${INSTALL_MARIADB} ${INSTALL_PHP}
 ${INSTALL} ${INSTALL_CERTBOT}
+
+#### Generate Strong Diffie-Hellman Group ####
+
+sudo openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
 
 #### LEMP SERVER CONFIG ####
 

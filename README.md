@@ -18,8 +18,8 @@ chmod +x lemp-server-install.sh
 
 Install `ca-certificates` (which allows `wget` to use https) to resolve the following errors:
 
-- The certificate of ‘raw.githubusercontent.com’ is not trusted.
-- The certificate of ‘raw.githubusercontent.com’ hasn't got a known issuer.
+- `The certificate of ‘raw.githubusercontent.com’ is not trusted.`
+- `The certificate of ‘raw.githubusercontent.com’ hasn't got a known issuer.`
 
 ```
 su -c "apt-get install ca-certificates"
@@ -39,26 +39,33 @@ sudo chmod +x /usr/bin/domain
 
 ### Usage
 
-#### Adding a Domain
+#### Add a Domain
+
+##### SSL Domain
 
 ```
 sudo domain add domain.tld
 ```
 
-##### Example
+- Web Root Directory: `/var/www/domain.tld`
+- nginx .conf file: `/etc/nginx/conf.d/domain.tld.conf`
+- `http://domain.tld` will be redirected to `https://domain.tld`
+- `http://www.domain.tld` will be redirected to `https://domain.tld`
+- `https://www.domain.tld` will be redirected to `https://domain.tld`
+
+##### Local Domain
 
 ```
-sudo domain add example.com
+sudo domain add domain.tld
 ```
 
-#### Removing a Domain
+- Web Root Directory: `/var/www/domain.local`
+- nginx .conf file: `/etc/nginx/conf.d/domain.local.conf`
+- `/etc/hosts` will be updated to point `domain.local` to `127.0.0.1`
+
+#### Remove a Domain
 
 ```
 sudo domain remove domain.tld
 ```
 
-##### Example
-
-```
-sudo domain remove example.com
-```

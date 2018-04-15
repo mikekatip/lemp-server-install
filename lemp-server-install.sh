@@ -199,9 +199,17 @@ ${INSTALL} ${INSTALL_CERTBOT}
 
 #### Generate Strong Diffie-Hellman Group ####
 
+echo
+echo "** CONFIGURING OPENSSL **"
+echo
+
 sudo openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
 
 #### LEMP SERVER CONFIG ####
+
+echo
+echo "** CONFIGURING NGINX **"
+echo
 
 # nginx
 sudo mkdir /etc/nginx/conf.backup
@@ -278,9 +286,19 @@ sudo bash -c "cat << 'EOF' > /var/www/default/index.php
 EOF"
 
 # MariaDB
+
+echo
+echo "** CONFIGURING MARIADB **"
+echo
+
 sudo mysql_secure_installation
 
 #php
+
+echo
+echo "** CONFIGURING PHP **"
+echo
+
 sudo sed -i "s/memory_limit = .*/memory_limit = 256M/" /etc/php/7.2/fpm/php.ini
 sudo sed -i "s/upload_max_filesize = .*/upload_max_filesize = 128M/" /etc/php/7.2/fpm/php.ini
 sudo sed -i "s/zlib.output_compression = .*/zlib.output_compression = on/" /etc/php/7.2/fpm/php.ini
@@ -304,26 +322,53 @@ EOF"
 
 # domain add/remove script
 
+echo
+echo "** INSTALLING DOMAIN MANAGEMENT SCRIPT **"
+echo
+
 sudo wget -O /usr/bin/domain https://raw.githubusercontent.com/mikekatip/lemp-server-install/master/usr/local/bin/domain.sh
 sudo chmod +x /usr/bin/domain
 
 #### START AND ENABLE SERVICES ####
 
 # MariaDB
+
+echo
+echo "** STARTING MARIADB **"
+echo
+
 sudo systemctl start mariadb
 sudo systemctl enable mariadb
 
 # php
+
+echo
+echo "** STARTING PHP **"
+echo
+
 sudo systemctl restart php7.2-fpm 
 
 # nginx
+
+echo
+echo "** STARTING NGINX **"
+echo
+
 sudo systemctl start nginx
 sudo systemctl enable  nginx
 
 #### DISPLAY IP ADDRESS ON LOGIN SCREEN ####
 
+echo
+echo "** ADDING IP ADDRESS TO LOGIN SCREEN **"
+echo
+
 sudo wget -O /etc/rc.local https://raw.githubusercontent.com/mikekatip/lemp-server-install/master/etc/rc.local
 
 sudo chmod +x /etc/rc.local
 
-sudo reboot
+echo
+echo "*** REBOOTING SERVER ***"
+echo
+
+sudo shutdown -r now

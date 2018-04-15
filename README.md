@@ -69,7 +69,12 @@ If you installed LEMP on your local development machine instead of a public web 
 
 #### Remove a Domain
 
+Make sure to make a backup before removing a domain.
+
 ```
 sudo domain remove domain.tld
 ```
 
+- Removes Web Root Directory (will not be backed up before deletion)
+- Removes nginx .conf file (will not be backed up before deletion)
+- Restarts nginx

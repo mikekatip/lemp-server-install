@@ -74,6 +74,10 @@ Make sure to make a backup before removing a domain.
 ```
 sudo domain remove domain.tld
 ```
+--OR--
+```
+sudo domain remove domain.local
+```
 
 - Removes Web Root Directory (will not be backed up before deletion)
 - Removes nginx .conf file (will not be backed up before deletion)

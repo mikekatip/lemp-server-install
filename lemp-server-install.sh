@@ -257,7 +257,8 @@ sudo sed -e '/sites-enabled/ s/^#*/#/' -i /etc/nginx/nginx.conf
 sudo mkdir -p /var/www/default
 sudo chgrp -R www-data /var/www
 sudo usermod -a -G www-data $USER
-sudo chmod -R 775 /var/www
+sudo chown -R "$USER":www-data /var/www
+sudo chmod -R 0755 /var/www
 
 sudo bash -c "cat << 'EOF' > /var/www/default/info.php
 <?php phpinfo(); ?>

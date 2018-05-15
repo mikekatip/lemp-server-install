@@ -80,10 +80,10 @@ EOF"
 </html>
 EOF"
 
-		sudo chown -R $USER:www-data $WEBROOT/$2
 		sudo chmod -R g+s $WEBROOT/$2
 	       	sudo chmod -R o-rwx $WEBROOT/$2
-	       	sudo chmod -R 0755 $WEBROOT/$2
+	       	sudo chown -R $USER:www-data $WEBROOT
+		sudo chmod -R 0755 $WEBROOT
 			
             	sudo systemctl restart nginx   
  		fi 

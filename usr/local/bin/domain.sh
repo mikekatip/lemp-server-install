@@ -90,7 +90,7 @@ EOF"
 			
             	sudo systemctl restart nginx
             
-#            if [[ ${2} != *".local"* ]];then
+            if [[ ${2} != *".local"* ]];then
 #            	sudo certbot certonly -a webroot --webroot-path=$WEBROOT/$2 -d $2 -d www.$2
 #            
 #                sudo bash -c "cat << 'EOF' > /etc/nginx/conf.d/$2.conf
@@ -135,7 +135,7 @@ EOF"
 #
 # EOF"
 #
-#            	sudo systemctl restart nginx               
+            	sudo systemctl restart nginx               
        	    else
        		sudo bash -c "cat << 'EOF' >> /etc/hosts
 127.0.0.1 $2

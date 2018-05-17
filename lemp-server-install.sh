@@ -205,7 +205,7 @@ echo
 
 sudo openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
 
-sudo bash -c "cat << 'EOF' > /etc/nginx/snippets/ssl-params.conf
+sudo bash -c "cat << 'EOF' > /etc/nginx/ssl-params.conf
 ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
 ssl_prefer_server_ciphers on;
 ssl_ciphers \"EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH\";

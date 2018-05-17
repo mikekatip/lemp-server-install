@@ -85,14 +85,19 @@ EOF"
 	       	sudo chown -R $USER:www-data $WEBROOT
 		sudo chmod -R 0755 $WEBROOT
 			
-            	sudo systemctl restart nginx   
- 		fi 
-		if [ $1 == "remove" ]; then
-			echo "Removing $2..."
-			sudo rm /etc/nginx/conf.d/$2.conf
-			sudo rm -R $WEBROOT/$2
-            sudo systemctl restart nginx
-		fi 
+            	sudo systemctl restart nginx
+		
+		if [[ ${2} != *".local"* ]];then
+			sudo certbot certonly -a webroot --webroot-path=$WEBROOT/$2 -d $2 -d www.$2
+		fi
+		
+ 	fi 
+	if [ $1 == "remove" ]; then
+		echo "Removing $2..."
+		sudo rm /etc/nginx/conf.d/$2.conf
+		sudo rm -R $WEBROOT/$2
+        	sudo systemctl restart nginx
+	fi 
 	else
 		printf "USAGE: \n $(basename $0) add domain.tld \n $(basename $0) remove domain.tld \n"      
 	fi	

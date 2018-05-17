@@ -80,24 +80,76 @@ EOF"
 </html>
 EOF"
 
-		sudo chmod -R g+s $WEBROOT/$2
+		sudo chown -R www-data:sudo $WEBROOT/$2
+		sudo chmod -R 775 $WEBROOT/$2
+	       	sudo chmod -R g+s $WEBROOT/$2
 	       	sudo chmod -R o-rwx $WEBROOT/$2
-	       	sudo chown -R $USER:www-data $WEBROOT
-		sudo chmod -R 0755 $WEBROOT
+	       	sudo chmod -R 775 $WEBROOT/$2
+		# sudo chown -R "$USER":www-data $WEBROOT/$2
+		# sudo chmod -R 0755 $WEBROOT/$2
 			
             	sudo systemctl restart nginx
-		
-		if [[ ${2} != *".local"* ]];then
-			sudo certbot certonly -a webroot --webroot-path=$WEBROOT/$2 -d $2 -d www.$2
-		fi
-		
- 	fi 
-	if [ $1 == "remove" ]; then
-		echo "Removing $2..."
-		sudo rm /etc/nginx/conf.d/$2.conf
-		sudo rm -R $WEBROOT/$2
-        	sudo systemctl restart nginx
-	fi 
+            
+            if [[ ${2} != *".local"* ]];then
+            	sudo certbot certonly -a webroot --webroot-path=$WEBROOT/$2 -d $2 -d www.$2
+            
+                sudo bash -c "cat << 'EOF' > /etc/nginx/conf.d/$2.conf
+ server {
+    listen 80;
+    listen [::]:80;
+    server_name $2 www.$2;
+    return 301 https://$2\$request_uri;
+ }
+
+ server {
+    listen 443 ssl;
+    listen [::]:443;
+    server_name www.$2;
+    return 301 https://$2\$request_uri;
+    ssl_certificate /etc/letsencrypt/live/$2/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/$2/privkey.pem;
+    include ssl-params.conf;
+ }
+
+ server {
+    listen 443 ssl;
+    listen [::]:443;
+    server_name $2;
+    ssl_certificate /etc/letsencrypt/live/$2/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/$2/privkey.pem;
+    include ssl-params.conf;
+
+    location / {
+        root   $WEBROOT/$2;
+        index  index.php index.html index.htm;
+    }
+
+  location ~ \.php$ {
+    fastcgi_index index.php;
+    fastcgi_keep_conn on;
+    include /etc/nginx/fastcgi_params;
+    fastcgi_pass unix:/run/php/php7.2-fpm.sock;
+    fastcgi_param SCRIPT_FILENAME $WEBROOT/$2\$fastcgi_script_name;
+  }
+ }
+
+ EOF"
+
+            	sudo systemctl restart nginx               
+       	    else
+       		sudo bash -c "cat << 'EOF' >> /etc/hosts
+127.0.0.1 $2
+127.0.0.1 www.$2
+
+EOF"
+            fi              
+ 		fi 
+		if [ $1 == "remove" ]; then
+			echo "Removing $2..."
+			sudo rm /etc/nginx/conf.d/$2.conf
+			sudo rm -R $WEBROOT/$2
+            sudo systemctl restart nginx
+		fi 
 	else
 		printf "USAGE: \n $(basename $0) add domain.tld \n $(basename $0) remove domain.tld \n"      
 	fi	

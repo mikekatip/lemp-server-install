@@ -3,6 +3,12 @@
 export DEBIAN_FRONTEND=noninteractive
 
 echo
+echo "************************************"
+echo "*** STARTING LEMP-SERVER-INSTALL ***"
+echo "************************************"
+echo
+
+echo
 echo "*** CHECKING FOR ROOT/SUDO ***"
 echo
 

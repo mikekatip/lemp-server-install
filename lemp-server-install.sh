@@ -27,7 +27,8 @@ if (( $EUID != 0 )); then
         echo    
         echo "** ADDING ${USER_NAME} TO sudo GROUP **" 
         echo 
-        # adding user to the "sudo" group is probably better, but editing "/etc/sudoers" does NOT require logout/login before use
+        sudo usermod -a -G sudo $USER
+        # editing "/etc/sudoers" does NOT require logout/login before use
         su -c "echo '${USER_NAME}  ALL=(ALL:ALL) ALL' >> /etc/sudoers"
         echo    
         echo " * DONE *"
@@ -255,9 +256,8 @@ EOF"
 sudo sed -e '/sites-enabled/ s/^#*/#/' -i /etc/nginx/nginx.conf
 
 sudo mkdir -p /var/www/default
-sudo chgrp -R www-data /var/www
 sudo usermod -a -G www-data $USER
-sudo chown -R $USER:www-data /var/www
+sudo chown -R www-data:www-data /var/www
 sudo chmod -R 0755 /var/www
 
 sudo bash -c "cat << 'EOF' > /var/www/default/info.php

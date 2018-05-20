@@ -8,51 +8,7 @@ echo "*** STARTING LEMP-SERVER-INSTALL ***"
 echo "************************************"
 echo
 
-echo
-echo "*** CHECKING FOR ROOT/SUDO ***"
-echo
-
 USER_NAME=$(whoami)
-
-if (( $EUID != 0 )); then        
-    # if user is NOT "root"
-    
-    if ! [ -x "$(command -v sudo)" ]; then
-        echo
-        echo "** INSTALLING 'sudo' **" 
-        echo 
-        su -c "apt-get install sudo"
-        echo        
-        echo " * DONE *"
-        echo
-    fi
-    
-    if getent group sudo | grep &>/dev/null "\b${USER_NAME}\b"; then
-        echo " * ${USER_NAME} IS IN THE sudo GROUP *"
-    else
-        echo    
-        echo "** ADDING ${USER_NAME} TO sudo GROUP **" 
-        echo 
-        su -c "usermod -a -G sudo $USER"
-        # editing "/etc/sudoers" does NOT require logout/login before use
-        su -c "echo '${USER_NAME}  ALL=(ALL:ALL) ALL' >> /etc/sudoers"
-        echo    
-        echo " * DONE *"
-        echo
-    fi
-else
-    # if user IS "root"
-    
-    if ! [ -x "$(command -v sudo)" ]; then
-        echo        
-        echo "** INSTALLING 'sudo' **" 
-        echo        
-        apt-get install sudo
-        echo
-        echo " * DONE *"
-        echo
-    fi
-fi
 
 echo
 echo "*** SETTING LOCALE ***"

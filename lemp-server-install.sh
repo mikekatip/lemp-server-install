@@ -27,7 +27,7 @@ if (( $EUID != 0 )); then
         echo    
         echo "** ADDING ${USER_NAME} TO sudo GROUP **" 
         echo 
-        sudo usermod -a -G sudo $USER
+        su -c "usermod -a -G sudo $USER"
         # editing "/etc/sudoers" does NOT require logout/login before use
         su -c "echo '${USER_NAME}  ALL=(ALL:ALL) ALL' >> /etc/sudoers"
         echo    

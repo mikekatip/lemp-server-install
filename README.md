@@ -10,9 +10,7 @@ Tested in the following distros:
 ## Installation
 
 ```
-wget https://raw.githubusercontent.com/mikekatip/lemp-server-install/master/lemp-server-install.sh
-chmod +x lemp-server-install.sh
-./lemp-server-install.sh
+wget https://raw.githubusercontent.com/mikekatip/lemp-server-install/master/lemp-server-install.sh -O - | bash
 ```
 ### Errors
 

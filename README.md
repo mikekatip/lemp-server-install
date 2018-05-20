@@ -20,7 +20,7 @@ Install `ca-certificates` (which allows `wget` to use https) to resolve the foll
 - `The certificate of ‘raw.githubusercontent.com’ hasn't got a known issuer.`
 
 ```
-su -c "apt-get install ca-certificates"
+sudo apt-get install ca-certificates
 ```
 ## Domain Management Script
 

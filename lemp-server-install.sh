@@ -197,7 +197,7 @@ sudo mkdir /etc/nginx/conf.backup
 sudo mv /etc/nginx/conf.d/default.conf /etc/nginx/conf.backup/default.conf
 sudo bash -c "cat << 'EOF' > /etc/nginx/conf.d/default.conf
 server {
-    listen       80;
+    listen       80 default_server;
     server_name  localhost;
 
     location / {

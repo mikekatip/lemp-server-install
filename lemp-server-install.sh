@@ -189,7 +189,7 @@ EOF"
 ### CREATE SELF-SIGNED LOCAL SSL CERT ###
 
 sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/certs/localhost.key -out /etc/ssl/certs/localhost.crt -config /etc/ssl/certs/localhost.conf
-
+certutil -d sql:$HOME/.pki/nssdb -A -t "P,," -n "localhost" -i localhost.crt
  
 #### LEMP SERVER CONFIG ####
 

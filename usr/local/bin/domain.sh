@@ -125,8 +125,8 @@ EOF"
 127.0.0.1 www.$2
 EOF"
 
-		certutil -d sql:$HOME/.pki/nssdb -A -t "P,," -n "$2" -i localhost.crt
-		certutil -d sql:$HOME/.pki/nssdb -A -t "P,," -n "www.$2" -i localhost.crt
+		certutil -d sql:$HOME/.pki/nssdb -A -t "P,," -n "$2" -i /etc/ssl/certs/localhost.crt
+		certutil -d sql:$HOME/.pki/nssdb -A -t "P,," -n "www.$2" -i /etc/ssl/certs/localhost.crt
 		sudo systemctl restart nginx  
             fi              
  		fi 

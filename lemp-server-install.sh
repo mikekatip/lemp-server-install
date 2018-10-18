@@ -41,7 +41,7 @@ else
 fi
 
 INSTALL_APT="apt apt-transport-https apt-utils software-properties-common"
-INSTALL_OTHER="curl dialog lsb-release nano ca-certificates dirmngr openssl"
+INSTALL_OTHER="curl dialog lsb-release nano ca-certificates dirmngr openssl libnss3-tools"
 
 ${INSTALL} ${INSTALL_APT} ${INSTALL_OTHER}
 
@@ -189,7 +189,7 @@ EOF"
 ### CREATE SELF-SIGNED LOCAL SSL CERT ###
 
 sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/certs/localhost.key -out /etc/ssl/certs/localhost.crt -config /etc/ssl/certs/localhost.conf
-certutil -d sql:$HOME/.pki/nssdb -A -t "P,," -n "localhost" -i localhost.crt
+certutil -d sql:$HOME/.pki/nssdb -A -t "P,," -n "localhost" -i /etc/ssl/certs/localhost.crt
  
 #### LEMP SERVER CONFIG ####
 

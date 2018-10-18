@@ -5,7 +5,9 @@ Tested in the following distros:
 - Debian 9 (Stretch)
 - Ubuntu 16.04 LTS (Xenial Xerus)
 - Ubuntu 17.10 (Artful Aardvark)
-- Elementary OS 0.4 (Loki).
+- Ubuntu 18.04 (Bionic Beaver)
+- Elementary OS 0.4 (Loki)
+- Elementary OS 5.0 (Junk)
 
 ## Installation
 

@@ -186,6 +186,11 @@ add_header X-Content-Type-Options nosniff;
 ssl_dhparam /etc/ssl/certs/dhparam.pem;
 EOF"
 
+### CREATE SELF-SIGNED LOCAL SSL CERT ###
+
+sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/certs/localhost.key -out /etc/ssl/certs/localhost.crt -config /etc/ssl/certs/localhost.conf
+
+ 
 #### LEMP SERVER CONFIG ####
 
 echo

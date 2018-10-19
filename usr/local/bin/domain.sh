@@ -137,16 +137,16 @@ server {
     listen [::]:443;
     server_name www.$2;
     return 301 https://$2\$request_uri;
-    ssl_certificate /etc/ssl/certs/$2.crt;
-    ssl_certificate_key /etc/ssl/private/$2.key;
+    ssl_certificate /etc/ssl/self-signed/katip.training.local.Localhost.cer;
+    ssl_certificate_key /etc/ssl/self-signed/katip.training.local.Localhost.pvk;
     include ssl-params.conf;
  }
  server {
     listen 443 ssl;
     listen [::]:443;
     server_name $2;
-    ssl_certificate /etc/ssl/certs/$2.crt;
-    ssl_certificate_key /etc/ssl/private/$2.key;
+    ssl_certificate /etc/ssl/self-signed/katip.training.local.Localhost.cer;
+    ssl_certificate_key /etc/ssl/self-signed/katip.training.local.Localhost.pvk;
     include ssl-params.conf;
     location / {
         root   $WEBROOT/$2;
@@ -161,10 +161,48 @@ server {
   }
  }
 EOF"
-        	sudo cp /etc/ssl/certs/localhost.conf /etc/ssl/certs/$2.conf
-		sudo cat /etc/ssl/certs/localhost.conf | sed -e "s/localhost/$2/" >> /etc/ssl/certs/localhost.conf
-		sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/$2.key -out /etc/ssl/certs/$2.crt -config /etc/ssl/certs/$2.conf
-		certutil -d sql:$HOME/.pki/nssdb -A -t "P,," -n "$2" -i /etc/ssl/certs/$2.crt
+
+cd /etc/ssl/self-signed
+
+
+DOMAIN=$2
+
+sudo bash -c "cat << 'EOF' > $DOMAIN.CA.cnf
+[ req ]
+distinguished_name  = req_distinguished_name
+x509_extensions     = root_ca
+
+[ req_distinguished_name ]
+countryName             = Country Name (2 letter code)
+countryName_min         = 2
+countryName_max         = 2
+stateOrProvinceName     = State or Province Name (full name)
+localityName            = Locality Name (eg, city)
+0.organizationName      = Organization Name (eg, company)
+organizationalUnitName  = Organizational Unit Name (eg, section)
+commonName              = Common Name (eg, fully qualified host name)
+commonName_max          = 64
+emailAddress            = Email Address
+emailAddress_max        = 64
+
+[ root_ca ]
+basicConstraints            = critical, CA:true
+EOF"
+
+sudo bash -c "cat << 'EOF' > $DOMAIN.Localhost.ext
+subjectAltName = @alt_names
+extendedKeyUsage = serverAuth
+
+[alt_names]
+DNS.1   = $DOMAIN
+EOF"
+
+sudo openssl req -x509 -newkey rsa:2048 -out $DOMAIN.CA.cer -outform PEM -keyout $DOMAIN.CA.pvk -days 10000 -verbose -config $DOMAIN.CA.cnf -nodes -sha256 -subj "/CN=$DOMAIN. CA"
+
+sudo openssl req -newkey rsa:2048 -keyout $DOMAIN.Localhost.pvk -out $DOMAIN.Localhost.req -subj /CN=localhost -sha256 -nodes
+sudo openssl x509 -req -CA $DOMAIN.CA.cer -CAkey $DOMAIN.CA.pvk -in $DOMAIN.Localhost.req -out $DOMAIN.Localhost.cer -days 10000 -extfile $DOMAIN.Localhost.ext -sha256 -set_serial 0x1111
+
+certutil -d sql:$HOME/.pki/nssdb -A -t "P,," -n "$DOMAIN" -i $DOMAIN.Localhost.cer
 		sudo systemctl restart nginx  
             fi              
  		fi 

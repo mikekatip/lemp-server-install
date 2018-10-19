@@ -187,8 +187,10 @@ ssl_dhparam /etc/ssl/certs/dhparam.pem;
 EOF"
 
 ### SELF-SIGNED SSL CERT STUFF ###
-
+sudo rm -R /etc/ssl/self-signed
 sudo mkdir -p /etc/ssl/self-signed
+
+rmdir -R $HOME/.pki
 mkdir -p $HOME/.pki/nssdb
 certutil -d $HOME/.pki/nssdb -N
  

@@ -125,6 +125,44 @@ EOF"
 127.0.0.1 www.$2
 EOF"
 
+                sudo bash -c "cat << 'EOF' > /etc/nginx/conf.d/$2.conf
+server {
+    listen 80;
+    listen [::]:80;
+    server_name $2 www.$2;
+    return 301 https://$2\$request_uri;
+ }
+ server {
+    listen 443 ssl;
+    listen [::]:443;
+    server_name www.$2;
+    return 301 https://$2\$request_uri;
+    ssl_certificate /etc/ssl/certs/localhost.crt;
+    ssl_certificate_key /etc/ssl/private/localhost.key;
+    include ssl-params.conf;
+ }
+ server {
+    listen 443 ssl;
+    listen [::]:443;
+    server_name $2;
+    ssl_certificate /etc/ssl/certs/localhost.crt;
+    ssl_certificate_key /etc/ssl/private/localhost.key;
+    include ssl-params.conf;
+    location / {
+        root   $WEBROOT/$2;
+        index  index.php index.html index.htm;
+    }
+  location ~ \.php$ {
+    fastcgi_index index.php;
+    fastcgi_keep_conn on;
+    include /etc/nginx/fastcgi_params;
+    fastcgi_pass unix:/run/php/php7.2-fpm.sock;
+    fastcgi_param SCRIPT_FILENAME $WEBROOT/$2\$fastcgi_script_name;
+  }
+ }
+EOF"
+        	sudo systemctl restart nginx 
+
 		certutil -d sql:$HOME/.pki/nssdb -A -t "P,," -n "$2" -i /etc/ssl/certs/localhost.crt
 		certutil -d sql:$HOME/.pki/nssdb -A -t "P,," -n "www.$2" -i /etc/ssl/certs/localhost.crt
 		sudo systemctl restart nginx  

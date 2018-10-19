@@ -137,16 +137,16 @@ server {
     listen [::]:443;
     server_name www.$2;
     return 301 https://$2\$request_uri;
-    ssl_certificate /etc/ssl/certs/localhost.crt;
-    ssl_certificate_key /etc/ssl/private/localhost.key;
+    ssl_certificate /etc/ssl/certs/$2.crt;
+    ssl_certificate_key /etc/ssl/private/$2.key;
     include ssl-params.conf;
  }
  server {
     listen 443 ssl;
     listen [::]:443;
     server_name $2;
-    ssl_certificate /etc/ssl/certs/localhost.crt;
-    ssl_certificate_key /etc/ssl/private/localhost.key;
+    ssl_certificate /etc/ssl/certs/$2.crt;
+    ssl_certificate_key /etc/ssl/private/$2.key;
     include ssl-params.conf;
     location / {
         root   $WEBROOT/$2;
@@ -163,8 +163,8 @@ server {
 EOF"
         	sudo systemctl restart nginx 
 
-		certutil -d sql:$HOME/.pki/nssdb -A -t "P,," -n "$2" -i /etc/ssl/certs/localhost.crt
-		certutil -d sql:$HOME/.pki/nssdb -A -t "P,," -n "www.$2" -i /etc/ssl/certs/localhost.crt
+		certutil -d sql:$HOME/.pki/nssdb -A -t "P,," -n "$2" -i /etc/ssl/certs/$2.crt
+		certutil -d sql:$HOME/.pki/nssdb -A -t "P,," -n "www.$2" -i /etc/ssl/certs/$2.crt
 		sudo systemctl restart nginx  
             fi              
  		fi 

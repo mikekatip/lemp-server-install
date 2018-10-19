@@ -162,12 +162,9 @@ server {
  }
 EOF"
         	sudo cp /etc/ssl/certs/localhost.conf /etc/ssl/certs/$2.conf
-		
-		xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-		
+		sudo cat /etc/ssl/certs/localhost.conf | sed -e "s/localhost/$2/" >> /etc/ssl/certs/localhost.conf
 		sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/$2.key -out /etc/ssl/certs/$2.crt -config /etc/ssl/certs/$2.conf
 		certutil -d sql:$HOME/.pki/nssdb -A -t "P,," -n "$2" -i /etc/ssl/certs/$2.crt
-
 		sudo systemctl restart nginx  
             fi              
  		fi 

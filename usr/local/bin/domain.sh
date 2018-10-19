@@ -161,10 +161,13 @@ server {
   }
  }
 EOF"
-        	sudo systemctl restart nginx 
-
+        	sudo cp /etc/ssl/certs/localhost.conf /etc/ssl/certs/$2.conf
+		
+		xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+		
+		sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/$2.key -out /etc/ssl/certs/$2.crt -config /etc/ssl/certs/$2.conf
 		certutil -d sql:$HOME/.pki/nssdb -A -t "P,," -n "$2" -i /etc/ssl/certs/$2.crt
-		certutil -d sql:$HOME/.pki/nssdb -A -t "P,," -n "www.$2" -i /etc/ssl/certs/$2.crt
+
 		sudo systemctl restart nginx  
             fi              
  		fi 
@@ -172,7 +175,7 @@ EOF"
 			echo "Removing $2..."
 			sudo rm /etc/nginx/conf.d/$2.conf
 			sudo rm -R $WEBROOT/$2
-            sudo systemctl restart nginx
+            		sudo systemctl restart nginx
 		fi 
 	else
 		printf "USAGE: \n $(basename $0) add domain.tld \n $(basename $0) remove domain.tld \n"      

@@ -64,7 +64,11 @@ RELEASE=$(lsb_release -sr)
 
 CODENAME=$(lsb_release -cs)
 CODENAME=${CODENAME,,}
-ARCH=[arch=$(uname -m)]
+ARCH=$(uname -m)
+
+if [ "${arch}" == "X86_64" ]; then
+    ARCH="amd64"
+fi
 
 echo
 echo DISTRO: ${DISTRO}
@@ -73,7 +77,7 @@ echo CODENAME: ${CODENAME}
 echo ARCH: ${ARCH}
 echo
 
-
+ARCH=[arch=${ARCH}]
 
 # check for debian sid
 
@@ -107,10 +111,8 @@ if [ "${DISTROU}" == "Ubuntu" ]; then
     echo UBUNTU RELEASE: ${RELEASE}
     echo UBUNTU CODENAME: ${CODENAME}
     echo
-    
-    # check for ubuntu 18.10 (cosmic) and change codename for testing only
 
-if [ "${CODENAME}" == "cosmic" ]; then
+if [ "${CODENAME}" == *cosmic* ]; then
     CODENAME="bionic"
 fi
     
@@ -138,8 +140,8 @@ sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb943db
 # everything else 
 sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xF1656F24C74CD1D8
 
-sudo bash -c "echo 'deb ${ARCH} http://nyc2.mirrors.digitalocean.com/mariadb/repo/10.2/${DISTRO} ${CODENAME} main' > /etc/apt/sources.list.d/mariadb.list"
-sudo bash -c "echo 'deb-src ${ARCH} http://nyc2.mirrors.digitalocean.com/mariadb/repo/10.2/${DISTRO} ${CODENAME} main' >> /etc/apt/sources.list.d/mariadb.list"
+sudo bash -c "echo 'deb ${ARCH} http://nyc2.mirrors.digitalocean.com/mariadb/repo/10.3/${DISTRO} ${CODENAME} main' > /etc/apt/sources.list.d/mariadb.list"
+sudo bash -c "echo 'deb-src ${ARCH} http://nyc2.mirrors.digitalocean.com/mariadb/repo/10.3/${DISTRO} ${CODENAME} main' >> /etc/apt/sources.list.d/mariadb.list"
 INSTALL_MARIADB="mariadb-server"
 
 # php

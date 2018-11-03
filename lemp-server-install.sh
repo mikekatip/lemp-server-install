@@ -99,7 +99,7 @@ fi
 
 DISTROU=$(lsb_release -siu)
 
-if [ "${DISTROU}" == "Ubuntu" ]; then
+if [ "${DISTROU}" == "ubuntu" ]; then
     DISTRO=$(lsb_release -siu)
     DISTRO=${DISTRO,,}
 
@@ -109,6 +109,10 @@ if [ "${DISTROU}" == "Ubuntu" ]; then
     CODENAME=${CODENAME,,}
     
     if [ "${RELEASE}" == "18.10" ]; then
+        CODENAME="bionic"
+    fi
+    
+    if [ "${CODENAME}" == "cosmic" ]; then
         CODENAME="bionic"
     fi
     

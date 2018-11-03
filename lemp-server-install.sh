@@ -70,6 +70,10 @@ if [ "${ARCH}" == "X86_64" ]; then
     ARCH="amd64"
 fi
 
+if [ "${ARCH}" == "x86_64" ]; then
+    ARCH="amd64"
+fi
+
 echo
 echo DISTRO: ${DISTRO}
 echo RELEASE: ${RELEASE}
@@ -101,9 +105,12 @@ if [ "${DISTROU}" == "Ubuntu" ]; then
 
     RELEASE=$(lsb_release -sru)
 
-    # CODENAME=$(lsb_release -csu)
-    # CODENAME=${CODENAME,,}
-    CODENAME="bionic"
+    CODENAME=$(lsb_release -csu)
+    CODENAME=${CODENAME,,}
+    
+    if [ "${RELEASE}" == "18.10" ]; then
+        CODENAME="bionic"
+    fi
     
     echo    
     echo "** UBUNTU DETECTED **"

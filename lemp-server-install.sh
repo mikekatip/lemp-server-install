@@ -64,11 +64,16 @@ RELEASE=$(lsb_release -sr)
 
 CODENAME=$(lsb_release -cs)
 CODENAME=${CODENAME,,}
+ARCH=[arch=$(uname -m)]
+
 echo
 echo DISTRO: ${DISTRO}
 echo RELEASE: ${RELEASE}
 echo CODENAME: ${CODENAME}
+echo ARCH: ${ARCH}
 echo
+
+
 
 # check for debian sid
 
@@ -102,6 +107,13 @@ if [ "${DISTROU}" == "Ubuntu" ]; then
     echo UBUNTU RELEASE: ${RELEASE}
     echo UBUNTU CODENAME: ${CODENAME}
     echo
+    
+    # check for ubuntu 18.10 (cosmic) and change codename for testing only
+
+if [ "${CODENAME}" == "cosmic" ]; then
+    CODENAME="bionic"
+fi
+    
 fi
 
 echo
@@ -116,8 +128,8 @@ echo
 wget http://nginx.org/packages/keys/nginx_signing.key
 sudo apt-key add nginx_signing.key
 rm nginx_signing.key
-sudo bash -c "echo 'deb http://nginx.org/packages/mainline/${DISTRO}/ ${CODENAME} nginx' > /etc/apt/sources.list.d/nginx.list"
-sudo bash -c "echo 'deb-src http://nginx.org/packages/mainline/${DISTRO}/ ${CODENAME} nginx' >> /etc/apt/sources.list.d/nginx.list"
+sudo bash -c "echo 'deb ${ARCH} http://nginx.org/packages/mainline/${DISTRO}/ ${CODENAME} nginx' > /etc/apt/sources.list.d/nginx.list"
+sudo bash -c "echo 'deb-src ${ARCH} http://nginx.org/packages/mainline/${DISTRO}/ ${CODENAME} nginx' >> /etc/apt/sources.list.d/nginx.list"
 INSTALL_NGINX="nginx"
 
 # MariaDB
@@ -126,15 +138,15 @@ sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb943db
 # everything else 
 sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xF1656F24C74CD1D8
 
-sudo bash -c "echo 'deb http://nyc2.mirrors.digitalocean.com/mariadb/repo/10.2/${DISTRO} ${CODENAME} main' > /etc/apt/sources.list.d/mariadb.list"
-sudo bash -c "echo 'deb-src http://nyc2.mirrors.digitalocean.com/mariadb/repo/10.2/${DISTRO} ${CODENAME} main' >> /etc/apt/sources.list.d/mariadb.list"
+sudo bash -c "echo 'deb ${ARCH} http://nyc2.mirrors.digitalocean.com/mariadb/repo/10.2/${DISTRO} ${CODENAME} main' > /etc/apt/sources.list.d/mariadb.list"
+sudo bash -c "echo 'deb-src ${ARCH} http://nyc2.mirrors.digitalocean.com/mariadb/repo/10.2/${DISTRO} ${CODENAME} main' >> /etc/apt/sources.list.d/mariadb.list"
 INSTALL_MARIADB="mariadb-server"
 
 # php
 
 if [ "${DISTRO}" == "debian" ]; then
     sudo wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
-    sudo bash -c "echo 'deb https://packages.sury.org/php/ ${CODENAME} main' > /etc/apt/sources.list.d/php.list"
+    sudo bash -c "echo 'deb ${ARCH} https://packages.sury.org/php/ ${CODENAME} main' > /etc/apt/sources.list.d/php.list"
 fi
 
 if [ "${DISTRO}" == "ubuntu" ]; then
@@ -146,7 +158,7 @@ INSTALL_PHP="php7.2-cgi php7.2-gd php7.2-curl php7.2-imap php7.2-sqlite3 php7.2-
 # letsencrypt
 
 if [ "${DISTRO}" == "debian" ]; then
-    sudo bash -c "echo 'deb http://ftp.debian.org/debian ${CODENAME}-backports main' > /etc/apt/sources.list.d/${CODENAME}-backports.list"
+    sudo bash -c "echo 'deb ${ARCH} http://ftp.debian.org/debian ${CODENAME}-backports main' > /etc/apt/sources.list.d/${CODENAME}-backports.list"
     INSTALL_CERTBOT="python-certbot-nginx -t ${CODENAME}-backports"
 fi
 

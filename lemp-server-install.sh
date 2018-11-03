@@ -12,6 +12,7 @@ sudo rm /etc/apt/sources.list.d/nginx* || true
 sudo rm /etc/apt/sources.list.d/mariadb* || true
 sudo rm /etc/apt/sources.list.d/ondrej-ubuntu-php* || true
 sudo rm /etc/apt/sources.list.d/php* || true
+sudo rm /etc/apt/sources.list.d/certbot* || true
 
 USER_NAME=$(whoami)
 
@@ -154,7 +155,9 @@ if [ "${DISTRO}" == "debian" ]; then
 fi
 
 if [ "${DISTRO}" == "ubuntu" ]; then
-    sudo add-apt-repository ppa:certbot/certbot
+    if [ "${RELEASE}" != "18.10" ]; then
+        sudo add-apt-repository ppa:certbot/certbot
+    fi
     INSTALL_CERTBOT="python-certbot-nginx"
 fi
 

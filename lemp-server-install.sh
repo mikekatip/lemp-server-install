@@ -66,7 +66,7 @@ CODENAME=$(lsb_release -cs)
 CODENAME=${CODENAME,,}
 ARCH=$(uname -m)
 
-if [ "${arch}" == "X86_64" ]; then
+if [ "${ARCH}" == "X86_64" ]; then
     ARCH="amd64"
 fi
 
@@ -101,8 +101,9 @@ if [ "${DISTROU}" == "Ubuntu" ]; then
 
     RELEASE=$(lsb_release -sru)
 
-    CODENAME=$(lsb_release -csu)
-    CODENAME=${CODENAME,,}
+    # CODENAME=$(lsb_release -csu)
+    # CODENAME=${CODENAME,,}
+    CODENAME="bionic"
     
     echo    
     echo "** UBUNTU DETECTED **"
@@ -110,11 +111,6 @@ if [ "${DISTROU}" == "Ubuntu" ]; then
     echo UBUNTU DISTRO: ${DISTRO}
     echo UBUNTU RELEASE: ${RELEASE}
     echo UBUNTU CODENAME: ${CODENAME}
-    echo
-
-    if [ "${CODENAME}" == "cosmic" ]; then
-        CODENAME="bionic"
-    fi
     
 fi
 

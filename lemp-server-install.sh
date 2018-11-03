@@ -112,7 +112,7 @@ if [ "${DISTROU}" == "Ubuntu" ]; then
     echo UBUNTU CODENAME: ${CODENAME}
     echo
 
-    if [ "$(lsb_release -cs)" == *cosmic* ]; then
+    if [ "${CODENAME}" == "cosmic" ]; then
         CODENAME="bionic"
     fi
     
@@ -142,6 +142,13 @@ sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xF1656F24C74CD1D8
 
 sudo bash -c "echo 'deb ${ARCH} http://nyc2.mirrors.digitalocean.com/mariadb/repo/10.3/${DISTRO} ${CODENAME} main' > /etc/apt/sources.list.d/mariadb.list"
 sudo bash -c "echo 'deb-src ${ARCH} http://nyc2.mirrors.digitalocean.com/mariadb/repo/10.3/${DISTRO} ${CODENAME} main' >> /etc/apt/sources.list.d/mariadb.list"
+
+
+if [ "${DISTROU}" == "Ubuntu" ]; then
+    sudo bash -c "echo 'deb ${ARCH} http://nyc2.mirrors.digitalocean.com/mariadb/repo/10.3/ubuntu bionic main' > /etc/apt/sources.list.d/mariadb.list"
+    sudo bash -c "echo 'deb-src ${ARCH} http://nyc2.mirrors.digitalocean.com/mariadb/repo/10.3/ubuntu bionic main' >> /etc/apt/sources.list.d/mariadb.list"
+fi
+
 INSTALL_MARIADB="mariadb-server"
 
 # php

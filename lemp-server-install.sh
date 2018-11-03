@@ -95,19 +95,6 @@ if [ "${CODENAME}" == "sid" ]; then
     echo
 fi
 
-# check for ubuntu based system
-
-DISTROU=$(lsb_release -siu)
-
-if [ "${DISTROU}" == "ubuntu" ]; then
-    DISTRO=$(lsb_release -siu)
-    DISTRO=${DISTRO,,}
-
-    RELEASE=$(lsb_release -sru)
-
-    CODENAME=$(lsb_release -csu)
-    CODENAME=${CODENAME,,}
-    
     if [ "${RELEASE}" == "18.10" ]; then
         CODENAME="bionic"
     fi
@@ -115,15 +102,6 @@ if [ "${DISTROU}" == "ubuntu" ]; then
     if [ "${CODENAME}" == "cosmic" ]; then
         CODENAME="bionic"
     fi
-    
-    echo    
-    echo "** UBUNTU DETECTED **"
-    echo
-    echo UBUNTU DISTRO: ${DISTRO}
-    echo UBUNTU RELEASE: ${RELEASE}
-    echo UBUNTU CODENAME: ${CODENAME}
-    
-fi
 
 echo
 echo " * DONE *"
@@ -149,12 +127,6 @@ sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xF1656F24C74CD1D8
 
 sudo bash -c "echo 'deb ${ARCH} http://nyc2.mirrors.digitalocean.com/mariadb/repo/10.3/${DISTRO} ${CODENAME} main' > /etc/apt/sources.list.d/mariadb.list"
 sudo bash -c "echo 'deb-src ${ARCH} http://nyc2.mirrors.digitalocean.com/mariadb/repo/10.3/${DISTRO} ${CODENAME} main' >> /etc/apt/sources.list.d/mariadb.list"
-
-
-if [ "${DISTROU}" == "Ubuntu" ]; then
-    sudo bash -c "echo 'deb ${ARCH} http://nyc2.mirrors.digitalocean.com/mariadb/repo/10.3/ubuntu bionic main' > /etc/apt/sources.list.d/mariadb.list"
-    sudo bash -c "echo 'deb-src ${ARCH} http://nyc2.mirrors.digitalocean.com/mariadb/repo/10.3/ubuntu bionic main' >> /etc/apt/sources.list.d/mariadb.list"
-fi
 
 INSTALL_MARIADB="mariadb-server"
 

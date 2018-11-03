@@ -8,6 +8,11 @@ echo "*** STARTING LEMP-SERVER-INSTALL ***"
 echo "************************************"
 echo
 
+sudo rm /etc/apt/sources.list.d/nginx* || true
+sudo rm /etc/apt/sources.list.d/mariadb* || true
+sudo rm /etc/apt/sources.list.d/ondrej-ubuntu-php* || true
+sudo rm /etc/apt/sources.list.d/php* || true
+
 USER_NAME=$(whoami)
 
 echo
@@ -74,16 +79,7 @@ if [ "${ARCH}" == "x86_64" ]; then
     ARCH="amd64"
 fi
 
-echo
-echo DISTRO: ${DISTRO}
-echo RELEASE: ${RELEASE}
-echo CODENAME: ${CODENAME}
-echo ARCH: ${ARCH}
-echo
-
 ARCH=[arch=${ARCH}]
-
-# check for debian sid
 
 if [ "${CODENAME}" == "sid" ]; then
     CODENAME="stretch"
@@ -95,13 +91,20 @@ if [ "${CODENAME}" == "sid" ]; then
     echo
 fi
 
-    if [ "${RELEASE}" == "18.10" ]; then
-        CODENAME="bionic"
-    fi
-    
-    if [ "${CODENAME}" == "cosmic" ]; then
-        CODENAME="bionic"
-    fi
+if [ "${RELEASE}" == "18.10" ]; then
+    CODENAME="bionic"
+fi
+
+if [ "${CODENAME}" == "cosmic" ]; then
+    CODENAME="bionic"
+fi
+
+echo
+echo DISTRO: ${DISTRO}
+echo RELEASE: ${RELEASE}
+echo CODENAME: ${CODENAME}
+echo ARCH: ${ARCH}
+echo
 
 echo
 echo " * DONE *"

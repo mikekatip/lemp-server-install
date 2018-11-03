@@ -112,9 +112,9 @@ if [ "${DISTROU}" == "Ubuntu" ]; then
     echo UBUNTU CODENAME: ${CODENAME}
     echo
 
-if [ "${CODENAME}" == *cosmic* ]; then
-    CODENAME="bionic"
-fi
+    if [ "$(lsb_release -cs)" == *cosmic* ]; then
+        CODENAME="bionic"
+    fi
     
 fi
 

@@ -361,3 +361,5 @@ echo
 sudo wget -O /etc/rc.local https://raw.githubusercontent.com/mikekatip/lemp-server-install/master/etc/rc.local
 
 sudo chmod +x /etc/rc.local
+
+sudo apt --fix-broken install -y && sudo apt autoremove -y

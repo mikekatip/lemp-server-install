@@ -24,7 +24,7 @@ server {
     fastcgi_index index.php;
     fastcgi_keep_conn on;
     include /etc/nginx/fastcgi_params;
-    fastcgi_pass unix:/run/php/php7.2-fpm.sock;
+    fastcgi_pass unix:/run/php/php7.3-fpm.sock;
     fastcgi_param SCRIPT_FILENAME $WEBROOT/$2\$fastcgi_script_name;
   }
 }
@@ -113,7 +113,7 @@ server {
     fastcgi_index index.php;
     fastcgi_keep_conn on;
     include /etc/nginx/fastcgi_params;
-    fastcgi_pass unix:/run/php/php7.2-fpm.sock;
+    fastcgi_pass unix:/run/php/php7.3-fpm.sock;
     fastcgi_param SCRIPT_FILENAME $WEBROOT/$2\$fastcgi_script_name;
   }
  }
@@ -137,16 +137,16 @@ server {
     listen [::]:443;
     server_name www.$2;
     return 301 https://$2\$request_uri;
-    ssl_certificate /etc/ssl/self-signed/katip.training.local.Localhost.cer;
-    ssl_certificate_key /etc/ssl/self-signed/katip.training.local.Localhost.pvk;
+    ssl_certificate /etc/ssl/self-signed/$DOMAIN.Localhost.cer;
+    ssl_certificate_key /etc/ssl/self-signed/$DOMAIN.Localhost.pvk;
     include ssl-params.conf;
  }
  server {
     listen 443 ssl;
     listen [::]:443;
     server_name $2;
-    ssl_certificate /etc/ssl/self-signed/katip.training.local.Localhost.cer;
-    ssl_certificate_key /etc/ssl/self-signed/katip.training.local.Localhost.pvk;
+    ssl_certificate /etc/ssl/self-signed/$DOMAIN.Localhost.cer;
+    ssl_certificate_key /etc/ssl/self-signed/$DOMAIN.Localhost.pvk;
     include ssl-params.conf;
     location / {
         root   $WEBROOT/$2;
@@ -156,7 +156,7 @@ server {
     fastcgi_index index.php;
     fastcgi_keep_conn on;
     include /etc/nginx/fastcgi_params;
-    fastcgi_pass unix:/run/php/php7.2-fpm.sock;
+    fastcgi_pass unix:/run/php/php7.3-fpm.sock;
     fastcgi_param SCRIPT_FILENAME $WEBROOT/$2\$fastcgi_script_name;
   }
  }
@@ -216,3 +216,6 @@ certutil -d sql:$HOME/.pki/nssdb -A -t "P,," -n "$DOMAIN" -i $DOMAIN.Localhost.c
 		printf "USAGE: \n $(basename $0) add domain.tld \n $(basename $0) remove domain.tld \n"      
 	fi	
 fi
+
+sudo chown -R www-data:www-data /var/www
+sudo chmod -R 755 /var/www

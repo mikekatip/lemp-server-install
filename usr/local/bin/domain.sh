@@ -124,24 +124,6 @@ EOF"
 127.0.0.1 $2
 127.0.0.1 www.$2
 EOF"
-
-                sudo bash -c "cat << 'EOF' > /etc/nginx/conf.d/$2.conf
-server {
-    listen 80;
-    listen [::]:80;
-    server_name $2 www.$2;
-    return 301 https://$2\$request_uri;
- }
-  location ~ \.php$ {
-    fastcgi_index index.php;
-    fastcgi_keep_conn on;
-    include /etc/nginx/fastcgi_params;
-    fastcgi_pass unix:/run/php/php7.3-fpm.sock;
-    fastcgi_param SCRIPT_FILENAME $WEBROOT/$2\$fastcgi_script_name;
-  }
- }
-EOF"
-		sudo systemctl restart nginx  
             fi              
  		fi 
 		if [ $1 == "remove" ]; then

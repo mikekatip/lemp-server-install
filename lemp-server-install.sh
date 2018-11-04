@@ -119,8 +119,18 @@ echo
 wget http://nginx.org/packages/keys/nginx_signing.key
 sudo apt-key add nginx_signing.key
 rm nginx_signing.key
-sudo bash -c "echo 'deb ${ARCH} http://nginx.org/packages/mainline/${DISTRO}/ ${CODENAME} nginx' > /etc/apt/sources.list.d/nginx.list"
-sudo bash -c "echo 'deb-src ${ARCH} http://nginx.org/packages/mainline/${DISTRO}/ ${CODENAME} nginx' >> /etc/apt/sources.list.d/nginx.list"
+
+if [ "${DISTRO}" == "debian" ]; then
+    sudo bash -c "echo 'deb ${ARCH} http://nginx.org/packages/mainline/${DISTRO}/ ${CODENAME} nginx' > /etc/apt/sources.list.d/nginx.list"
+    sudo bash -c "echo 'deb-src ${ARCH} http://nginx.org/packages/mainline/${DISTRO}/ ${CODENAME} nginx' >> /etc/apt/sources.list.d/nginx.list"
+
+fi
+
+if [ "${DISTRO}" == "ubuntu" ]; then
+    sudo bash -c "echo 'deb ${ARCH} http://nginx.org/packages/mainline/debian/ stretch nginx' > /etc/apt/sources.list.d/nginx.list"
+    sudo bash -c "echo 'deb-src ${ARCH} http://nginx.org/packages/mainline/debian/ stretch nginx' >> /etc/apt/sources.list.d/nginx.list"
+fi
+
 INSTALL_NGINX="nginx"
 
 # MariaDB
@@ -129,8 +139,16 @@ sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb943db
 # everything else 
 sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xF1656F24C74CD1D8
 
-sudo bash -c "echo 'deb ${ARCH} http://nyc2.mirrors.digitalocean.com/mariadb/repo/10.3/${DISTRO} ${CODENAME} main' > /etc/apt/sources.list.d/mariadb.list"
-sudo bash -c "echo 'deb-src ${ARCH} http://nyc2.mirrors.digitalocean.com/mariadb/repo/10.3/${DISTRO} ${CODENAME} main' >> /etc/apt/sources.list.d/mariadb.list"
+if [ "${DISTRO}" == "debian" ]; then
+    sudo bash -c "echo 'deb ${ARCH} http://nyc2.mirrors.digitalocean.com/mariadb/repo/10.3/${DISTRO} ${CODENAME} main' > /etc/apt/sources.list.d/mariadb.list"
+    sudo bash -c "echo 'deb-src ${ARCH} http://nyc2.mirrors.digitalocean.com/mariadb/repo/10.3/${DISTRO} ${CODENAME} main' >> /etc/apt/sources.list.d/mariadb.list"  
+fi
+
+if [ "${DISTRO}" == "ubuntu" ]; then
+    sudo bash -c "echo 'deb ${ARCH} http://nyc2.mirrors.digitalocean.com/mariadb/repo/10.3/debian stretch main' > /etc/apt/sources.list.d/mariadb.list"
+    sudo bash -c "echo 'deb-src ${ARCH} http://nyc2.mirrors.digitalocean.com/mariadb/repo/10.3/debian stretch main' >> /etc/apt/sources.list.d/mariadb.list"  
+
+fi
 
 INSTALL_MARIADB="mariadb-server"
 
@@ -145,7 +163,7 @@ if [ "${DISTRO}" == "ubuntu" ]; then
     sudo add-apt-repository ppa:ondrej/php
 fi
 
-INSTALL_PHP="php7.2-cgi php7.2-gd php7.2-curl php7.2-imap php7.2-sqlite3 php7.2-mysql php7.2-tidy php7.2-pspell php7.2-recode php7.2-xml php7.2-intl php7.2-enchant php7.2-gmp php7.2-mbstring php7.2-soap php7.2-xmlrpc php7.2-zip php7.2-fpm"
+INSTALL_PHP="php7.3-cgi php7.3-gd php7.3-curl php7.3-imap php7.3-sqlite3 php7.3-mysql php7.3-tidy php7.3-pspell php7.3-recode php7.3-xml php7.3-intl php7.3-enchant php7.3-gmp php7.3-mbstring php7.3-soap php7.3-xmlrpc php7.3-zip php7.3-fpm"
 
 # letsencrypt
 
@@ -223,7 +241,7 @@ server {
     fastcgi_index index.php;
     fastcgi_keep_conn on;
     include /etc/nginx/fastcgi_params;
-    fastcgi_pass unix:/run/php/php7.2-fpm.sock;
+    fastcgi_pass unix:/run/php/php7.3-fpm.sock;
     fastcgi_param SCRIPT_FILENAME /var/www/default\$fastcgi_script_name;
   }
 }
@@ -232,14 +250,10 @@ EOF"
 sudo sed -e '/sites-enabled/ s/^#*/#/' -i /etc/nginx/nginx.conf
 
 sudo mkdir -p /var/www/default
-sudo usermod -a -G www-data $USER
-sudo chown -R www-data:www-data /var/www
-sudo chmod -R 0755 /var/www
 
 sudo bash -c "cat << 'EOF' > /var/www/default/info.php
 <?php phpinfo(); ?>
 EOF"
-
 
 sudo bash -c "cat << 'EOF' > /var/www/default/index.php
 <!DOCTYPE html>
@@ -294,17 +308,17 @@ echo
 echo "** CONFIGURING PHP **"
 echo
 
-sudo sed -i "s/memory_limit = .*/memory_limit = 256M/" /etc/php/7.2/fpm/php.ini
-sudo sed -i "s/upload_max_filesize = .*/upload_max_filesize = 128M/" /etc/php/7.2/fpm/php.ini
-sudo sed -i "s/zlib.output_compression = .*/zlib.output_compression = on/" /etc/php/7.2/fpm/php.ini
-sudo sed -i "s/max_execution_time = .*/max_execution_time = 18000/" /etc/php/7.2/fpm/php.ini
+sudo sed -i "s/memory_limit = .*/memory_limit = 256M/" /etc/php/7.3/fpm/php.ini
+sudo sed -i "s/upload_max_filesize = .*/upload_max_filesize = 128M/" /etc/php/7.3/fpm/php.ini
+sudo sed -i "s/zlib.output_compression = .*/zlib.output_compression = on/" /etc/php/7.3/fpm/php.ini
+sudo sed -i "s/max_execution_time = .*/max_execution_time = 18000/" /etc/php/7.3/fpm/php.ini
 
-sudo mv /etc/php/7.2/fpm/pool.d/www.conf /etc/php/7.2/fpm/pool.d/www.conf.org
-sudo bash -c "cat << 'EOF' > /etc/php/7.2/fpm/pool.d/www.conf
+sudo mv /etc/php/7.3/fpm/pool.d/www.conf /etc/php/7.3/fpm/pool.d/www.conf.org
+sudo bash -c "cat << 'EOF' > /etc/php/7.3/fpm/pool.d/www.conf
 [www]
 user = www-data
 group = www-data
-listen = /run/php/php7.2-fpm.sock
+listen = /run/php/php7.3-fpm.sock
 listen.owner = www-data
 listen.group = www-data
 listen.mode = 0666
@@ -341,7 +355,7 @@ echo
 echo "** STARTING PHP **"
 echo
 
-sudo systemctl restart php7.2-fpm 
+sudo systemctl restart php7.3-fpm 
 
 # nginx
 
@@ -363,3 +377,7 @@ sudo wget -O /etc/rc.local https://raw.githubusercontent.com/mikekatip/lemp-serv
 sudo chmod +x /etc/rc.local
 
 sudo apt --fix-broken install -y && sudo apt autoremove -y
+
+sudo usermod -a -G www-data $USER
+sudo chown -R www-data:www-data /var/www
+sudo chmod -R 0755 /var/www

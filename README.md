@@ -69,7 +69,7 @@ If you installed LEMP on your local development machine instead of a public web 
 - Web Root Directory: `/var/www/domain.local`
 - nginx .conf file: `/etc/nginx/conf.d/domain.local.conf`
 - `/etc/hosts` will be updated to point `domain.local` to `127.0.0.1`
-- Not configured for SSL using LetsEncrypt
+- Not configured for SSL
 
 #### Remove a Domain
 

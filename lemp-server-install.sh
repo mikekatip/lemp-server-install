@@ -380,4 +380,4 @@ sudo apt --fix-broken install -y && sudo apt autoremove -y
 
 sudo usermod -a -G www-data $USER
 sudo chown -R www-data:www-data /var/www
-sudo chmod -R 0755 /var/www
+sudo chmod -R 775 /var/www

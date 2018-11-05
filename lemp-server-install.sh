@@ -147,7 +147,11 @@ fi
 if [ "${DISTRO}" == "ubuntu" ]; then
     sudo bash -c "echo 'deb ${ARCH} http://nyc2.mirrors.digitalocean.com/mariadb/repo/10.3/debian stretch main' > /etc/apt/sources.list.d/mariadb.list"
     sudo bash -c "echo 'deb-src ${ARCH} http://nyc2.mirrors.digitalocean.com/mariadb/repo/10.3/debian stretch main' >> /etc/apt/sources.list.d/mariadb.list"  
+fi
 
+if [ "${DISTRO}" == "elementary" ]; then
+    sudo bash -c "echo 'deb ${ARCH} http://nyc2.mirrors.digitalocean.com/mariadb/repo/10.3/debian stretch main' > /etc/apt/sources.list.d/mariadb.list"
+    sudo bash -c "echo 'deb-src ${ARCH} http://nyc2.mirrors.digitalocean.com/mariadb/repo/10.3/debian stretch main' >> /etc/apt/sources.list.d/mariadb.list"  
 fi
 
 INSTALL_MARIADB="mariadb-server"
@@ -160,6 +164,10 @@ if [ "${DISTRO}" == "debian" ]; then
 fi
 
 if [ "${DISTRO}" == "ubuntu" ]; then
+    sudo add-apt-repository ppa:ondrej/php
+fi
+
+if [ "${DISTRO}" == "elementary" ]; then
     sudo add-apt-repository ppa:ondrej/php
 fi
 
@@ -176,6 +184,11 @@ if [ "${DISTRO}" == "ubuntu" ]; then
     if [ "${RELEASE}" != "18.10" ]; then
         sudo add-apt-repository ppa:certbot/certbot
     fi
+    INSTALL_CERTBOT="python-certbot-nginx"
+fi
+
+if [ "${DISTRO}" == "elementary" ]; then
+    sudo add-apt-repository ppa:certbot/certbot
     INSTALL_CERTBOT="python-certbot-nginx"
 fi
 

@@ -137,5 +137,5 @@ EOF"
 	fi	
 fi
 
-sudo chown -R www-data:www-data /var/www
-sudo chmod -R 775 /var/www
+sudo chown -R www-data:www-data $WEBROOT/$2
+sudo chmod -R 775 $WEBROOT/$2

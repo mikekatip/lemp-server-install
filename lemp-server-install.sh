@@ -37,7 +37,7 @@ echo
 # sudo bash -c "echo 'LANGUAGE=${LANGUAGE}' >> /etc/default/locale"
 # sudo bash -c "echo 'LANG=${LANG}' > /etc/environment"
 
-sudp apt install -y locales
+sudo apt install -y locales
 sudo dpkg-reconfigure locales
 
 echo

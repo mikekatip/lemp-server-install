@@ -61,7 +61,7 @@ else
 fi
 
 INSTALL_APT="apt apt-transport-https apt-utils software-properties-common"
-INSTALL_OTHER="curl dialog lsb-release nano ca-certificates dirmngr openssl libnss3-tools"
+INSTALL_OTHER="curl dialog lsb-release nano ca-certificates dirmngr openssl libnss3-tools python3"
 
 ${INSTALL} ${INSTALL_APT} ${INSTALL_OTHER}
 

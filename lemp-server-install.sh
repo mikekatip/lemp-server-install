@@ -8,24 +8,38 @@ echo "*** STARTING LEMP-SERVER-INSTALL ***"
 echo "************************************"
 echo
 
-sudo rm /etc/apt/sources.list.d/nginx* || true
-sudo rm /etc/apt/sources.list.d/mariadb* || true
-sudo rm /etc/apt/sources.list.d/ondrej-ubuntu-php* || true
-sudo rm /etc/apt/sources.list.d/php* || true
-sudo rm /etc/apt/sources.list.d/certbot* || true
 
 USER_NAME=$(whoami)
+
+echo
+echo "*** CLEANING UP FILES ***"
+echo
+
+declare -a cleanupfiles=("/etc/apt/sources.list.d/nginx*" "/etc/apt/sources.list.d/mariadb*" "/etc/apt/sources.list.d/ondrej-ubuntu-php*" "/etc/apt/sources.list.d/php*" "/etc/apt/sources.list.d/certbot*")
+
+for i in "${cleanupfiles[@]}"
+do
+   rm -f "$i"
+done
+
+echo
+echo " * DONE *"
+echo
 
 echo
 echo "*** SETTING LOCALE ***"
 echo
 
-LANG=en_US.UTF-8
-LANGUAGE=en_US:en
-sudo locale-gen --purge ${LANG}
-sudo bash -c "echo 'LANG=${LANG}' > /etc/default/locale"
-sudo bash -c "echo 'LANGUAGE=${LANGUAGE}' >> /etc/default/locale"
-sudo bash -c "echo 'LANG=${LANG}' > /etc/environment"
+# LANG=en_US.UTF-8
+# LANGUAGE=en_US:en
+# sudo locale-gen --purge ${LANG}
+# sudo bash -c "echo 'LANG=${LANG}' > /etc/default/locale"
+# sudo bash -c "echo 'LANGUAGE=${LANGUAGE}' >> /etc/default/locale"
+# sudo bash -c "echo 'LANG=${LANG}' > /etc/environment"
+
+sudp apt install -y locales
+sudo dpkg-reconfigure locales
+
 echo
 echo " * DONE *"
 echo

@@ -30,14 +30,8 @@ echo
 echo "*** SETTING LOCALE ***"
 echo
 
-# LANG=en_US.UTF-8
-# LANGUAGE=en_US:en
-# sudo locale-gen --purge ${LANG}
-# sudo bash -c "echo 'LANG=${LANG}' > /etc/default/locale"
-# sudo bash -c "echo 'LANGUAGE=${LANGUAGE}' >> /etc/default/locale"
-# sudo bash -c "echo 'LANG=${LANG}' > /etc/environment"
-
 sudo apt install -y locales
+sudo locale-gen en_US en_US.UTF-8
 sudo dpkg-reconfigure locales
 
 echo

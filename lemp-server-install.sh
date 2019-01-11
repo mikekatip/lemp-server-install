@@ -128,6 +128,8 @@ wget http://nginx.org/packages/keys/nginx_signing.key
 sudo apt-key add nginx_signing.key
 rm nginx_signing.key
 
+sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0x ABF5BD827BD9BF62
+
 if [ "${DISTRO}" == "debian" ]; then
     sudo bash -c "echo 'deb ${ARCH} http://nginx.org/packages/mainline/${DISTRO}/ ${CODENAME} nginx' > /etc/apt/sources.list.d/nginx.list"
     sudo bash -c "echo 'deb-src ${ARCH} http://nginx.org/packages/mainline/${DISTRO}/ ${CODENAME} nginx' >> /etc/apt/sources.list.d/nginx.list"

@@ -13,20 +13,11 @@ Tested in the following distros:
 ## Installation
 
 ```
+sudo apt-get install ca-certificates
 wget https://raw.githubusercontent.com/mikekatip/lemp-server-install/master/lemp-server-install.sh
 chmod +x lemp-server-install.sh
 ./lemp-server-install.sh
 rm lemp-server-install.sh
-```
-### Errors
-
-Install `ca-certificates` (which allows `wget` to use https) to resolve the following errors:
-
-- `The certificate of ‘raw.githubusercontent.com’ is not trusted.`
-- `The certificate of ‘raw.githubusercontent.com’ hasn't got a known issuer.`
-
-```
-sudo apt-get install ca-certificates
 ```
 ## Domain Management Script
 

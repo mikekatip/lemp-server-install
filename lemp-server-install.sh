@@ -150,18 +150,18 @@ sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb943db
 sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xF1656F24C74CD1D8
 
 if [ "${DISTRO}" == "debian" ]; then
-    sudo bash -c "echo 'deb ${ARCH} http://nyc2.mirrors.digitalocean.com/mariadb/repo/10.3/${DISTRO} ${CODENAME} main' > /etc/apt/sources.list.d/mariadb.list"
-    sudo bash -c "echo 'deb-src ${ARCH} http://nyc2.mirrors.digitalocean.com/mariadb/repo/10.3/${DISTRO} ${CODENAME} main' >> /etc/apt/sources.list.d/mariadb.list"  
+    sudo bash -c "echo 'deb ${ARCH} http://mariadb.mirror.nucleus.be/repo/10.4/${DISTRO} ${CODENAME} main' > /etc/apt/sources.list.d/mariadb.list"
+    sudo bash -c "echo 'deb-src ${ARCH} http://mariadb.mirror.nucleus.be/repo/10.4/${DISTRO} ${CODENAME} main' >> /etc/apt/sources.list.d/mariadb.list"  
 fi
 
 if [ "${DISTRO}" == "ubuntu" ]; then
-    sudo bash -c "echo 'deb ${ARCH} http://nyc2.mirrors.digitalocean.com/mariadb/repo/10.3/debian stretch main' > /etc/apt/sources.list.d/mariadb.list"
-    sudo bash -c "echo 'deb-src ${ARCH} http://nyc2.mirrors.digitalocean.com/mariadb/repo/10.3/debian stretch main' >> /etc/apt/sources.list.d/mariadb.list"  
+    sudo bash -c "echo 'deb ${ARCH} http://mariadb.mirror.nucleus.be/repo/10.4/debian stretch main' > /etc/apt/sources.list.d/mariadb.list"
+    sudo bash -c "echo 'deb-src ${ARCH} http://mariadb.mirror.nucleus.be/repo/10.4/debian stretch main' >> /etc/apt/sources.list.d/mariadb.list"  
 fi
 
 if [ "${DISTRO}" == "elementary" ]; then
-    sudo bash -c "echo 'deb ${ARCH} http://nyc2.mirrors.digitalocean.com/mariadb/repo/10.3/debian stretch main' > /etc/apt/sources.list.d/mariadb.list"
-    sudo bash -c "echo 'deb-src ${ARCH} http://nyc2.mirrors.digitalocean.com/mariadb/repo/10.3/debian stretch main' >> /etc/apt/sources.list.d/mariadb.list"  
+    sudo bash -c "echo 'deb ${ARCH} http://mariadb.mirror.nucleus.be/repo/10.4/debian stretch main' > /etc/apt/sources.list.d/mariadb.list"
+    sudo bash -c "echo 'deb-src ${ARCH} http://mariadb.mirror.nucleus.be/repo/10.4/debian stretch main' >> /etc/apt/sources.list.d/mariadb.list"  
 fi
 
 INSTALL_MARIADB="mariadb-server"

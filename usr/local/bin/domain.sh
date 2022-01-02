@@ -77,7 +77,7 @@ EOF"
 EOF"
 
        	sudo chown -R www-data:www-data $WEBROOT/$2
-        sudo chmod -R 0755 $WEBROOT/$2
+        sudo chmod -R 0775 $WEBROOT/$2
 			
         sudo systemctl restart nginx
             
@@ -143,3 +143,4 @@ fi
 
 sudo chown -R www-data:www-data $WEBROOT
 sudo chmod -R 775 $WEBROOT
+sudo usermod -aG www-data $USER

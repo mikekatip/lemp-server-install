@@ -26,7 +26,7 @@ server {
           fastcgi_index index.php;
           fastcgi_keep_conn on;
           include /etc/nginx/fastcgi_params;
-          fastcgi_pass unix:/run/php/php7.3-fpm.sock;
+          fastcgi_pass unix:/run/php/php-fpm.sock;
           fastcgi_param SCRIPT_FILENAME $WEBROOT/$2\$fastcgi_script_name;
      }
 }
@@ -117,7 +117,7 @@ server {
           fastcgi_index index.php;
           fastcgi_keep_conn on;
           include /etc/nginx/fastcgi_params;
-          fastcgi_pass unix:/run/php/php7.3-fpm.sock;
+          fastcgi_pass unix:/run/php/php-fpm.sock;
           fastcgi_param SCRIPT_FILENAME $WEBROOT/$2\$fastcgi_script_name;
      }
 }

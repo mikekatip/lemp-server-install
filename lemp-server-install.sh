@@ -39,6 +39,7 @@ sudo wget -O /etc/nginx/conf.d/default.conf https://raw.githubusercontent.com/mi
 
 sudo mkdir -p /etc/nginx/snippets
 sudo wget -O /etc/nginx/snippets/fastcgi-php.conf https://raw.githubusercontent.com/mikekatip/lemp-server-install/master/etc/nginx/snippets/fastcgi-php.conf
+sudo wget -O /etc/nginx/fastcgi.conf https://raw.githubusercontent.com/mikekatip/lemp-server-install/master/etc/nginx/fastcgi.conf
 
 sudo systemctl enable nginx
 sudo systemctl start nginx

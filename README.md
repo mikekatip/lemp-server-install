@@ -9,25 +9,12 @@ rm lemp-server-install.sh
 ```
 ## Domain Management Script
 
-### Installation
+### Add a Domain
 
-`lemp-server-install.sh` will automatically install `domain.sh` to `/usr/bin/domain`. 
-
-Manual installation is not necessary, but is possible with the following commands:
+#### Public Web Server
 
 ```
-sudo wget -O /usr/bin/domain https://raw.githubusercontent.com/mikekatip/lemp-server-install/master/usr/local/bin/domain.sh
-sudo chmod +x /usr/bin/domain
-```
-
-### Usage
-
-#### Add a Domain
-
-##### Public Web Server
-
-```
-sudo domain add domain.tld
+sudo /usr/bin/domain add domain.tld
 ```
 
 - Web Root Directory: `/var/www/domain.tld`
@@ -37,7 +24,7 @@ sudo domain add domain.tld
 - `http://www.domain.tld` will be redirected to `https://domain.tld`
 - `https://www.domain.tld` will be redirected to `https://domain.tld`
 
-##### Local Web Server
+#### Local Web Server
 
 ```
 sudo domain add domain.local
@@ -50,7 +37,7 @@ If you installed LEMP on your local development machine instead of a public web 
 - `/etc/hosts` will be updated to point `domain.local` to `127.0.0.1`
 - Not configured for SSL
 
-#### Remove a Domain
+### Remove a Domain
 
 Make sure to make a backup before removing a domain.
 

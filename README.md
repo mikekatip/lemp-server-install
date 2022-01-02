@@ -1,3 +1,8 @@
+# nginx, MariaDB, and PHP
+
+Tested in the following distros:
+- Ubuntu 21.10 (Impish Indri)
+ 
 ## Installation
 
 ```

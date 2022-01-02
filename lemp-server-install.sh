@@ -1,18 +1,17 @@
 #!/bin/bash
 
-sudo apt remove --purge apache* php* nginx* mariadb* certbot -y
-sudo rm -R /etc/apache2
+sudo apt remove --purge php* nginx* mariadb* certbot -y
 sudo rm -R /etc/nginx
 sudo rm -R /etc/php
 
 sudo add-apt-repository ppa:ondrej/php
 sudo apt update 
 sudo apt upgrade -y
-sudo apt install php8.1 php8.1-fpm -y
-sudo apt remove --purge apache* -y
-sudo apt autoremove -y
+sudo apt install php8.1 php8.1-fpm php8.1-mysql nginx mariadb-server mariadb-client certbot python3-certbot-nginx -y		
 
-sudo apt install nginx mariadb-server mariadb-client certbot python3-certbot-nginx -y		
+sudo apt remove --purge apache* -y
+sudo rm -R /etc/apache2
+sudo apt autoremove -y
 
 sudo mysql_secure_installation
 

@@ -1,15 +1,3 @@
-# nginx, MariaDB, and PHP in Debian/Ubuntu
-
-Tested in the following distros:
-- Debian 8 (Jessie)
-- Debian 9 (Stretch)
-- Ubuntu 16.04 LTS (Xenial Xerus)
-- Ubuntu 17.10 (Artful Aardvark)
-- Ubuntu 18.04 (Bionic Beaver)
-- Ubuntu 18.10 (Cosmic Cuttlefish)
-- Elementary OS 0.4 (Loki)
-- Elementary OS 5.0 (Juno)
-
 ## Installation
 
 ```

@@ -1,4 +1,8 @@
-# nginx, MariaDB, and PHP
+# LEMP SERVER INSTALL
+
+- nginx
+- MariaDB
+- PHP
 
 Tested in the following distros:
 - Ubuntu 21.10 (Impish Indri)

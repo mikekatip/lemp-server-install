@@ -10,11 +10,9 @@
 sudo apt-get install ca-certificates curl
 curl -s https://raw.githubusercontent.com/mikekatip/lemp-server-install/master/lemp-server-install.sh | bash
 ```
-## Domain Management Script
+# Add a Domain
 
-### Add a Domain
-
-#### Public Web Server
+## Public Web Server
 
 ```
 sudo /usr/bin/domain add domain.tld
@@ -27,7 +25,7 @@ sudo /usr/bin/domain add domain.tld
 - `http://www.domain.tld` will be redirected to `https://domain.tld`
 - `https://www.domain.tld` will be redirected to `https://domain.tld`
 
-#### Local Web Server
+## Local Web Server
 
 ```
 sudo domain add domain.local
@@ -40,7 +38,7 @@ If you installed LEMP on your local development machine instead of a public web 
 - `/etc/hosts` will be updated to point `domain.local` to `127.0.0.1`
 - Not configured for SSL
 
-### Remove a Domain
+# Remove a Domain
 
 Make sure to make a backup before removing a domain.
 

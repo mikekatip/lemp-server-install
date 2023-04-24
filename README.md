@@ -4,17 +4,11 @@
 - MariaDB
 - PHP
 
-Tested in the following distros:
-- Ubuntu 21.10 (Impish Indri)
- 
 ## Installation
 
 ```
-sudo apt-get install ca-certificates
-wget https://raw.githubusercontent.com/mikekatip/lemp-server-install/master/lemp-server-install.sh
-chmod +x lemp-server-install.sh
-./lemp-server-install.sh
-rm lemp-server-install.sh
+sudo apt-get install ca-certificates curl
+curl -s https://raw.githubusercontent.com/mikekatip/lemp-server-install/master/lemp-server-install.sh | bash
 ```
 ## Domain Management Script
 
